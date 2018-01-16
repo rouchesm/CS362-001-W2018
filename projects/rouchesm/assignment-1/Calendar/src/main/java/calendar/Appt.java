@@ -121,7 +121,7 @@ public class Appt implements  Comparable<Appt>{
             	if(startDay<1 || startDay>NumDaysInMonth)
             		this.valid=false;
             	else
-                	if(startMonth<1 || startMonth>12)
+                	if(startMonth<1 || startMonth>=12) /*Changed startMonth >12 to startMonth>=12 */
                 		this.valid=false;
                 	else
                 		this.valid=true;
@@ -220,8 +220,8 @@ public class Appt implements  Comparable<Appt>{
     public void setRecurrence(int[] recurDays, int recurBy, int recurIncrement, int recurNumber) {
         setRecurDays(recurDays);
         setRecurBy(recurBy);
-        setRecurIncrement(recurIncrement);
-        setRecurNumber(recurNumber);
+        setRecurIncrement(recurNumber);  //swapped recur increment and recur number
+        setRecurNumber(recurIncrement);
     }
     private void setRecurDays(int[] recurDays) {
         if (recurDays == null) {
@@ -304,7 +304,7 @@ public class Appt implements  Comparable<Appt>{
  //   startMinute+startHour+day+month+year is ascending order.
 	public int compareTo(Appt compareAppt) {
 		int startMinute=	this.startMinute - ((Appt) compareAppt).getStartMinute();
-		int startHour=	this.startHour - ((Appt) compareAppt).getStartHour();
+		int startHour=	this.startHour + ((Appt) compareAppt).getStartHour(); //changed - to +
 		int day = this.getStartDay()-((Appt) compareAppt).getStartDay();
 		int month = this.startMonth -((Appt) compareAppt).getStartMonth();
 		int year = this.startYear -((Appt) compareAppt).getStartYear();
