@@ -1,0 +1,23 @@
+Appt.java, isValid() method, line 115
+Symptom: Some appointments will be marked as valid when they should be marked as invalid.
+Cause: Line 115 in Appt.java, method isValid(), the conditional statement has “startHour >25” when it should read “startHour >24”.
+How was it found: Using a random tester that created appointments with random start hours, days, months, years, and minutes I checked the validity of each appointment and tested it against what should be expected. The test quickly failed when an assumed “assertFalse” statement failed, and it failed when the hour was 24 but appointment was valid. 
+TimeTable.java, deleteAppt() method, line 210
+Symptom: The code will crash when you try to delete an appointment that is at the 0th index of the list
+Cause: Line 210 in deleteAppt() method has a for loop where the initial index of the loop is set to 1 when this index should start at zero.
+How was it found: Using a random testing method, I created a list of random size and appointments and assigned these to a timetable and randomly deleted these. At one point the test suite crashed, and the error was found to be in the deleteAppt function, and was triggered whenever the function tried to remove an appointment from a list of length 1
+Input: 
+5 – index to get
+[null, null, null, null, null] – array of appointments (set to null)
+TimeTable.java, getApptRange() method, line 70
+Symptom: The code crashes with an index out of bounds error when it tries to get a range of appointments between two day. 
+Cause: On line 70 in the getApptRange() method the daysDifference variable is incremented by 2 every loop, while the day of month is only incremented by 1. This causes the difference calculation to be off and can result in an OOB error.
+How it was found: Using a unit test for the getApptRange() method the bug was uncovered. This occurred because I had three appointments that I was adding to the list with multiple complex recurrences. The function tried to increment the day it was on and missed one of the appointments, so there was a mismatch and the program threw an error.
+Input that caused error:
+
+java.util.GregorianCalendar[time=?,areFieldsSet=false,areAllFieldsSet=false,lenient=true,zone=sun.util.calendar.ZoneInfo[id="America/Los_Angeles",offset=-28800000,dstSavings=3600000,useDaylight=true,transitions=185,lastRule=java.util.SimpleTimeZone[id=America/Los_Angeles,offset=-28800000,dstSavings=3600000,useDaylight=true,startYear=0,startMode=3,startMonth=2,startDay=8,startDayOfWeek=1,startTime=7200000,startTimeMode=0,endMode=3,endMonth=10,endDay=1,endDayOfWeek=1,endTime=7200000,endTimeMode=0]],firstDayOfWeek=1,minimalDaysInFirstWeek=1,ERA=?,YEAR=2018,MONTH=2,WEEK_OF_YEAR=?,WEEK_OF_MONTH=?,DAY_OF_MONTH=8,DAY_OF_YEAR=?,DAY_OF_WEEK=?,DAY_OF_WEEK_IN_MONTH=?,AM_PM=0,HOUR=0,HOUR_OF_DAY=0,MINUTE=0,SECOND=0,MILLISECOND=?,ZONE_OFFSET=?,DST_OFFSET=?]
+java.util.GregorianCalendar[time=?,areFieldsSet=false,areAllFieldsSet=false,lenient=true,zone=sun.util.calendar.ZoneInfo[id="America/Los_Angeles",offset=-28800000,dstSavings=3600000,useDaylight=true,transitions=185,lastRule=java.util.SimpleTimeZone[id=America/Los_Angeles,offset=-28800000,dstSavings=3600000,useDaylight=true,startYear=0,startMode=3,startMonth=2,startDay=8,startDayOfWeek=1,startTime=7200000,startTimeMode=0,endMode=3,endMonth=10,endDay=1,endDayOfWeek=1,endTime=7200000,endTimeMode=0]],firstDayOfWeek=1,minimalDaysInFirstWeek=1,ERA=?,YEAR=2018,MONTH=2,WEEK_OF_YEAR=?,WEEK_OF_MONTH=?,DAY_OF_MONTH=15,DAY_OF_YEAR=?,DAY_OF_WEEK=?,DAY_OF_WEEK_IN_MONTH=?,AM_PM=0,HOUR=0,HOUR_OF_DAY=0,MINUTE=0,SECOND=0,MILLISECOND=?,ZONE_OFFSET=?,DST_OFFSET=?]
+[	2/4/2018 at 0:45pm ,Test, test_day_1
+, 	2/6/2018 at 5:2pm ,Test_2, test_day_2
+, 	2/6/2018 at 9:30pm ,Test_3, test_day_3
+]
